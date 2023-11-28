@@ -1,57 +1,48 @@
-import React from 'react';
-import logo from './logo.svg';
-import { Counter } from './features/counter/Counter';
-import './App.css';
+import { BrowserRouter, Route, Routes } from "react-router-dom";
+import "./index.css";
+import { Login } from "./pages/auth/login";
+import PageLayout from "./layout/page-layout";
+import { ToastContainer } from "react-toastify";
+import Overview from "./pages/admin/overview";
+import Account from "./pages/admin/account";
+import Transaction from "./pages/admin/transaction";
+import { PageNotFound } from "./page-not-found";
+import { ProtectedRoutes } from "./protected-route";
+import Approval from "./pages/admin/approvals";
+import Redirect from "./pages/Redirect";
+import { AuthLayout } from "./layout/auth-layout";
+import Register from "./pages/auth/register";
+import { Suspense } from "react";
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <Counter />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <span>
-          <span>Learn </span>
-          <a
-            className="App-link"
-            href="https://reactjs.org/"
-            target="_blank"
-            rel="noopener noreferrer"
+    <Suspense
+      fallback={<div className="flex items-center h-[100vh]">Loading...</div>}
+    >
+      <BrowserRouter>
+        <ToastContainer />
+        <Routes>
+          <Route path="/" element={<Redirect />} />
+          <Route element={<AuthLayout />}>
+            <Route path="/register" element={<Register />} />
+            <Route path="/login" element={<Login />} />
+          </Route>
+          <Route
+            element={
+              <ProtectedRoutes>
+                <PageLayout />
+              </ProtectedRoutes>
+            }
           >
-            React
-          </a>
-          <span>, </span>
-          <a
-            className="App-link"
-            href="https://redux.js.org/"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Redux
-          </a>
-          <span>, </span>
-          <a
-            className="App-link"
-            href="https://redux-toolkit.js.org/"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Redux Toolkit
-          </a>
-          ,<span> and </span>
-          <a
-            className="App-link"
-            href="https://react-redux.js.org/"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            React Redux
-          </a>
-        </span>
-      </header>
-    </div>
+            <Route path="/overview" element={<Overview />} />
+            <Route path="account" element={<Account />} />
+            <Route path="transaction" element={<Transaction />} />
+            <Route path="approval" element={<Approval />} />
+            <Route path="*" element={<PageNotFound />} />
+          </Route>
+        </Routes>
+      </BrowserRouter>
+    </Suspense>
   );
 }
 

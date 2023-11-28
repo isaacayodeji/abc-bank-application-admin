@@ -1,0 +1,215 @@
+import { Button } from "antd";
+import { Col, Form, Input, Row } from "antd";
+import { motion } from "framer-motion";
+
+
+
+const Register = () => {
+  
+  return (
+    <div className="h-screen sm:h-[100vh] grid grid-rows-[4rem_1fr] ">
+      {/* <header className="flex items-center justify-between px-10">
+        <h2 className="font-bold text-[22px] font-[gelionRegular] text-blue-600">
+          Abc Banking & Groups
+        </h2>
+        <img src={"/images/logo.png"} alt="" width={200} />
+        <div className="hidden lg:flex justify-center items-center gap-1">
+          <p className="text-black font-[gelionLight] font-bold">
+            Already have an account?
+          </p>
+          <Button
+            type="text"
+            className="py-5 border border-solid border-[#0b67f3] flex items-center text-blue-600"
+          >
+            Sign in
+          </Button>
+        </div>
+      </header> */}
+      <main className="flex justify-center items-center py-6 ">
+        <motion.div
+          initial={{ scale: 0.7 }}
+          animate={{ scale: 1 }}
+          transition={{
+            duration: 0.5,
+            delay: 0.4,
+            type: "spring",
+            stiffness: 200,
+          }}
+          className="p-5 lg:p-20 h-[90%] w-[95%] max-w-[40rem]"
+        >
+          <h1 className=" text-blue-600 font-bold font-[gelionRegular] text-xl lg:text-3xl text-center lg:text-start">
+            Register your account
+          </h1>
+
+          <Form
+            requiredMark="optional"
+            layout="vertical"
+            wrapperCol={{ span: 24 }}
+            className="my-[1.60rem] pb-6 "
+            // onFinish={handleLogin}
+          >
+            <Row gutter={12} style={{ width: "100%" }}>
+              <Col xs={24} md={12}>
+                <Form.Item
+                  label={<div className="font-semibold">First Name</div>}
+                  rules={[{ required: true, message: "First Name required" }]}
+                  name="firstName"
+                >
+                  <Input
+                    type="firstName"
+                    // value={email}
+                    name="firstName"
+                    className="py-3"
+                    // onChange={handleChange}
+                  />
+                </Form.Item>
+              </Col>
+              <Col xs={24} md={12}>
+                <Form.Item
+                  label={<div className="font-semibold">Middle Name</div>}
+                  rules={[{ required: true, message: "Middle Name required" }]}
+                  name="middleName"
+                >
+                  <Input
+                    type="middleName"
+                    // value={email}
+                    name="middleName"
+                    className="py-3"
+                    // onChange={handleChange}
+                  />
+                </Form.Item>
+              </Col>
+
+              <Col xs={24} md={12}>
+                <Form.Item
+                  label={<div className="font-semibold">Surname</div>}
+                  rules={[{ required: true, message: "Surname required" }]}
+                  name="surname"
+                >
+                  <Input
+                    type="surname"
+                    // value={email}
+                    name="surname"
+                    className="py-3"
+                    // onChange={handleChange}
+                  />
+                </Form.Item>
+              </Col>
+              <Col xs={24} md={12}>
+                <Form.Item
+                  label={<div className="font-semibold">Phone Number</div>}
+                  rules={[{ required: true, message: "Phone Number required" }]}
+                  name="phoneNumber"
+                >
+                  <Input
+                    type="number"
+                    // value={email}
+                    name="phoneNumber"
+                    className="py-3"
+                    // onChange={handleChange}
+                  />
+                </Form.Item>
+              </Col>
+              <Col xs={24} md={12}>
+                <Form.Item
+                  label={<div className="font-semibold">Email</div>}
+                  rules={[{ required: true, message: "Email required" }]}
+                  name="email"
+                >
+                  <Input
+                    type="email"
+                    // value={email}
+                    name="email"
+                    className="py-3"
+                    // onChange={handleChange}
+                  />
+                </Form.Item>
+              </Col>
+              <Col xs={24} md={12}>
+                <Form.Item
+                  label={<div className="font-semibold">Date of birth</div>}
+                  rules={[{ required: true, message: "Email required" }]}
+                  name="Date of Birth"
+                >
+                  <Input
+                    type="dob"
+                    // value={email}
+                    name="dob"
+                    className="py-3"
+                    // onChange={handleChange}
+                  />
+                </Form.Item>
+              </Col>
+              <Col xs={24}>
+                <Form.Item
+                  label={<div className="font-semibold">Address</div>}
+                  rules={[{ required: true, message: "Address required" }]}
+                  name="Address"
+                >
+                  <Input
+                    type="address"
+                    // value={email}
+                    name="address"
+                    className="py-3"
+                    // onChange={handleChange}
+                  />
+                </Form.Item>
+              </Col>
+              <Col xs={24} md={12}>
+                <Form.Item
+                  label={<div className="font-semibold">Gender</div>}
+                  rules={[{ required: true, message: "Gender" }]}
+                  name="Gender"
+                >
+                  <Input
+                    type="gender"
+                    // value={email}
+                    name="gender"
+                    className="py-3"
+                    // onChange={handleChange}
+                  />
+                </Form.Item>
+              </Col>
+              <Col xs={24} md={12}>
+                <Form.Item
+                  label={<div className="font-semibold">Password</div>}
+                  rules={[{ required: true, message: "Password required" }]}
+                  name="password"
+                >
+                  <Input.Password
+                    type="password"
+                    // value={password}
+                    name="password"
+                    className="py-3"
+                    // onChange={handleChange}
+                  />
+                </Form.Item>
+              </Col>
+
+              <Col span={24}>
+                <Button
+                  type="primary"
+                  htmlType="submit"
+                  block
+                  // loading={loading}
+                  className={`flex items-center font-bold justify-center py-5 mt-4 mx-auto bg-blue-600 text-white `}
+                >
+                  Register
+                </Button>
+              </Col>
+            </Row>
+          </Form>
+          <div className="flex lg:hidden justify-center items-center gap-1">
+            <p className="text-[#333333] font-[gelionLight] font-bold">
+              Don't have an account?
+            </p>
+            <Button type="text" className="py-5 flex items-center">
+              Register
+            </Button>
+          </div>
+        </motion.div>
+      </main>
+    </div>
+  );
+};
+export default Register;
