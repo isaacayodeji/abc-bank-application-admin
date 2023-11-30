@@ -44,5 +44,6 @@ export namespace State {
   export interface Auth {
     request: ApiRequest.Auth;
     
+    
   }
 }

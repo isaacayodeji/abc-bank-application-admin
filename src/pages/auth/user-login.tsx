@@ -1,16 +1,17 @@
 import { Button, Col, Form, Input, Row } from "antd";
 import { motion } from "framer-motion";
-import useFieldRequest from "../../hooks/useFieldRequest";
 import { useAppSelector } from "../../app/hooks";
-import { useLogin } from "../../hooks/useLogin";
+import useFieldRequest from "../../hooks/useFieldRequest";
+import useUserLogin from "../../hooks/useUserLogin";
 
-export const Login: React.FC = () => {
-  const state = useAppSelector((state) => {
-    return state.auth;
-  });
-  const { AuthRequest } = useFieldRequest(state);
+const UserLogin = () => {
 
-  const { result, handleLogin } = useLogin();
+     const state = useAppSelector((state) => {
+       return state.auth;
+     });
+     const { AuthRequest } = useFieldRequest(state);
+
+     const { result, handleLogin } = useUserLogin();
 
   return (
     <>
@@ -28,8 +29,7 @@ export const Login: React.FC = () => {
             className="p-5 lg:p-20 h-[90%] w-[95%] max-w-[45rem]"
           >
             <h1 className=" text-blue-600 font-bold font-[gelionRegular] text-xl lg:text-3xl text-center lg:text-start">
-              Welcome,
-               Sign in to Admin account
+              Welcome, Sign in to User account
             </h1>
 
             <Form
@@ -98,4 +98,5 @@ export const Login: React.FC = () => {
       </div>
     </>
   );
-};
+}
+export default UserLogin

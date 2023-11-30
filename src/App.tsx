@@ -14,6 +14,10 @@ import { AuthLayout } from "./layout/auth-layout";
 import Register from "./pages/auth/register";
 import { Suspense } from "react";
 
+import { UserOverview, UserTransaction } from "./pages/user/index";
+import UserPageLayout from "./layout/userLayout/user-page-layout";
+import UserLogin from "./pages/auth/user-login";
+
 function App() {
   return (
     <Suspense
@@ -22,11 +26,12 @@ function App() {
       <BrowserRouter>
         <ToastContainer />
         <Routes>
-          <Route path="/" element={<Redirect />} />
           <Route element={<AuthLayout />}>
-            <Route path="/register" element={<Register />} />
-            <Route path="/login" element={<Login />} />
+            <Route path="/" element={<UserLogin />} />
+            <Route path="/user/register" element={<Register />} />
+            <Route path="/admin/login" element={<Login />} />
           </Route>
+          {/* Admin */}
           <Route
             element={
               <ProtectedRoutes>
@@ -34,11 +39,22 @@ function App() {
               </ProtectedRoutes>
             }
           >
-            <Route path="/overview" element={<Overview />} />
-            <Route path="account" element={<Account />} />
-            <Route path="transaction" element={<Transaction />} />
-            <Route path="approval" element={<Approval />} />
+            <Route path="/admin/overview" element={<Overview />} />
+            <Route path="/admin/account" element={<Account />} />
+            <Route path="/admin/transaction" element={<Transaction />} />
+            <Route path="/admin/approval" element={<Approval />} />
             <Route path="*" element={<PageNotFound />} />
+          </Route>
+          {/* Users */}
+          <Route
+            element={
+              <ProtectedRoutes>
+                <UserPageLayout />
+              </ProtectedRoutes>
+            }
+          >
+            <Route path="/user/overview" element={<UserOverview />} />
+            <Route path="/user/overview" element={<UserTransaction />} />
           </Route>
         </Routes>
       </BrowserRouter>

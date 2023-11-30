@@ -35,4 +35,7 @@ export {
   useGetSelectedValueQuery,
 } from "../service/global";
 
-export { useLoginUserMutation } from "../service/authApi";
+export {
+  useAdminLoginMutation,
+  useUserLoginMutation,
+} from "../service/authApi";

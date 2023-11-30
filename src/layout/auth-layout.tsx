@@ -3,14 +3,13 @@ import React, { useLayoutEffect } from "react";
 import { Outlet, useLocation, useNavigate } from "react-router-dom";
 
 export const AuthLayout: React.FC = () => {
-  useLayoutEffect(() => {
-    if (!localStorage.getItem("*****")) {
-      window.history.back()
-    }
-  }, []);
-  const navigate = useNavigate()
-  const {pathname} = useLocation()
-
+  // useLayoutEffect(() => {
+  //   if (!localStorage.getItem("*****")) {
+  //     window.history.back()
+  //   }
+  // }, []);
+  const navigate = useNavigate();
+  const { pathname } = useLocation();
 
   return (
     <div className="h-screen grid grid-rows-[5rem_1fr] ">
@@ -20,14 +19,28 @@ export const AuthLayout: React.FC = () => {
         </h2>
         <div className="items-center gap-2 hidden lg:flex">
           <p className="text-[#333333] font-[gelionLight] font-bold">
-            {pathname === "/login" ? "Don't have an account?" : "Already have an account?"}
+            {pathname === "/login"
+              ? "Don't have an account?"
+              : "Already have an account?"}
           </p>{" "}
           <Button
             type="text"
             className="py-5 border border-solid border-[#0b67f3] flex items-center text-blue-600"
-            onClick={() => navigate(pathname === "/login" ? "/register" : "/login")}
+            onClick={() =>
+              navigate(
+                pathname === "/login"
+                  ? "/login"
+                  : "/user/register" && pathname !== "/user/register"
+                  ? "/user/register"
+                  : "/login"
+              )
+            }
           >
-            Sign {pathname === "/login" ? "up" : "in"}
+            {pathname === "/user/register"
+              ? "Sign In"
+              : "Sign Up" || pathname === "/"
+              ? "Sign Up"
+              : "Sign In"}
           </Button>
         </div>
       </header>

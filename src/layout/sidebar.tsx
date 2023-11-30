@@ -22,28 +22,28 @@ const Sidebar = () => {
         <h2>{userInfo.email}</h2>
       </div>
       <hr />
-      {/* menu */}
+      {/*admin menu */}
       <ul className="flex pl-12 flex-col gap-6  p-4 pt-8">
         <li className="text-[18px] font-bold ">
-          <a className="flex items-center gap-2" href="/overview" target="">
+          <a className="flex items-center gap-2" href="/admin/overview" target="">
             <AiOutlineAppstore />
             Overview
           </a>
         </li>
         <li className="text-[18px] font-bold ">
-          <a className="flex items-center gap-2" href="/account" target="">
+          <a className="flex items-center gap-2" href="/admin/account" target="">
             <AiOutlineUser />
             Account
           </a>
         </li>
         <li className="text-[18px] font-bold ">
-          <a className="flex items-center gap-2" href="/transaction" target="">
+          <a className="flex items-center gap-2" href="/admin/transaction" target="">
             <AiOutlineCreditCard />
             Transactions
           </a>
         </li>
         <li className="text-[18px] font-bold ">
-          <a className="flex items-center gap-2" href="/approval" target="">
+          <a className="flex items-center gap-2" href="/admin/approval" target="">
             <GoVerified />
             Approval
           </a>

@@ -6,7 +6,7 @@ export const authApi = createApi({
     baseUrl: "https://test.xpresspayments.com:2300/",
   }),
   endpoints: (builder) => ({
-    loginUser: builder.mutation({
+    adminLogin: builder.mutation({
       query: (data) => {
         return {
           url: "Admin",
@@ -15,15 +15,15 @@ export const authApi = createApi({
         };
       },
     }),
-    SignUp: builder.mutation({
+    userLogin: builder.mutation({
       query: (data) => {
         return {
-          url: "SignUp",
+          url: "Login",
           method: "POST",
           body: data.reqest,
         };
-      }
-    })
+      },
+    }),
   }),
 });
-export const { useLoginUserMutation,useSignUpMutation } = authApi;
+export const { useAdminLoginMutation, useUserLoginMutation } = authApi;
