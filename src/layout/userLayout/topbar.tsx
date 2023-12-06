@@ -63,12 +63,12 @@ const Topbar = () => {
   const showDrawer = () => {
     setOpen(true);
   };
-  const [current, setCurrent] = useState("1");
+
 
   const onClose = () => {
     setOpen(false);
   };
-  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+  
 
   const navigate = useNavigate();
   const handleLogout = () => {

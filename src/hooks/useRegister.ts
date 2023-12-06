@@ -1,7 +1,7 @@
 import { useCallback } from "react";
 import { useNavigate } from "react-router-dom";
 import { useAppSelector } from "../app/hooks";
-import { useAdminLoginMutation, useRegisterMutation } from "../service/authApi";
+import { useRegisterMutation } from "../service/authApi";
 import { ApiResponse } from "../application/client/response";
 import { Notify } from "../features/notification";
 
