@@ -1,11 +1,17 @@
 import { Button } from "antd";
 import { Col, Form, Input, Row } from "antd";
 import { motion } from "framer-motion";
-
-
+import useRegister from "../../hooks/useRegister";
+import useFieldRequest from "../../hooks/useFieldRequest";
+import { useAppSelector } from "../../app/hooks";
 
 const Register = () => {
-  
+  const { hnadleRegister, result } = useRegister();
+  const state = useAppSelector((state) => {
+    return state.auth;
+  });
+  const { AuthRequest } = useFieldRequest(state);
+
   return (
     <div className="h-screen sm:h-[100vh] grid grid-rows-[4rem_1fr] ">
       {/* <header className="flex items-center justify-between px-10">
@@ -35,7 +41,7 @@ const Register = () => {
             type: "spring",
             stiffness: 200,
           }}
-          className="p-5 lg:p-20 h-[90%] w-[95%] max-w-[40rem]"
+          className="p-5 lg:p-20 h-[90%] w-[95%] max-w-[40rem]" 
         >
           <h1 className=" text-blue-600 font-bold font-[gelionRegular] text-xl lg:text-3xl text-center lg:text-start">
             Register your account
@@ -46,7 +52,7 @@ const Register = () => {
             layout="vertical"
             wrapperCol={{ span: 24 }}
             className="my-[1.60rem] pb-6 "
-            // onFinish={handleLogin}
+            onFinish={hnadleRegister}
           >
             <Row gutter={12} style={{ width: "100%" }}>
               <Col xs={24} md={12}>
@@ -56,11 +62,11 @@ const Register = () => {
                   name="firstName"
                 >
                   <Input
-                    type="firstName"
+                    type="text"
                     // value={email}
                     name="firstName"
                     className="py-3"
-                    // onChange={handleChange}
+                    onChange={(e) => AuthRequest("firstName", e.target.value)}
                   />
                 </Form.Item>
               </Col>
@@ -75,7 +81,7 @@ const Register = () => {
                     // value={email}
                     name="middleName"
                     className="py-3"
-                    // onChange={handleChange}
+                    onChange={(e) => AuthRequest("middleName", e.target.value)}
                   />
                 </Form.Item>
               </Col>
@@ -87,11 +93,11 @@ const Register = () => {
                   name="surname"
                 >
                   <Input
-                    type="surname"
+                    type="text"
                     // value={email}
                     name="surname"
                     className="py-3"
-                    // onChange={handleChange}
+                    onChange={(e) => AuthRequest("surname", e.target.value)}
                   />
                 </Form.Item>
               </Col>
@@ -106,7 +112,7 @@ const Register = () => {
                     // value={email}
                     name="phoneNumber"
                     className="py-3"
-                    // onChange={handleChange}
+                    onChange={(e) => AuthRequest("phoneNumber", e.target.value)}
                   />
                 </Form.Item>
               </Col>
@@ -121,7 +127,7 @@ const Register = () => {
                     // value={email}
                     name="email"
                     className="py-3"
-                    // onChange={handleChange}
+                    onChange={(e) => AuthRequest("email", e.target.value)}
                   />
                 </Form.Item>
               </Col>
@@ -132,11 +138,12 @@ const Register = () => {
                   name="Date of Birth"
                 >
                   <Input
-                    type="dob"
+                    type="text"
                     // value={email}
                     name="dob"
                     className="py-3"
-                    // onChange={handleChange}
+                    placeholder="MM/DD/YYYY"
+                    onChange={(e) => AuthRequest("dob", e.target.value)}
                   />
                 </Form.Item>
               </Col>
@@ -147,11 +154,11 @@ const Register = () => {
                   name="Address"
                 >
                   <Input
-                    type="address"
+                    type="text"
                     // value={email}
                     name="address"
                     className="py-3"
-                    // onChange={handleChange}
+                    onChange={(e) => AuthRequest("address", e.target.value)}
                   />
                 </Form.Item>
               </Col>
@@ -166,7 +173,7 @@ const Register = () => {
                     // value={email}
                     name="gender"
                     className="py-3"
-                    // onChange={handleChange}
+                    onChange={(e) => AuthRequest("gender", e.target.value)}
                   />
                 </Form.Item>
               </Col>
@@ -181,7 +188,7 @@ const Register = () => {
                     // value={password}
                     name="password"
                     className="py-3"
-                    // onChange={handleChange}
+                    onChange={(e) => AuthRequest("password", e.target.value)}
                   />
                 </Form.Item>
               </Col>
@@ -191,7 +198,7 @@ const Register = () => {
                   type="primary"
                   htmlType="submit"
                   block
-                  // loading={loading}
+                  loading={result.isLoading}
                   className={`flex items-center font-bold justify-center py-5 mt-4 mx-auto bg-blue-600 text-white `}
                 >
                   Register

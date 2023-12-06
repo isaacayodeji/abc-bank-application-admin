@@ -31,10 +31,11 @@ export {
   useGetDataQuery,
   usePostDataMutation,
   useGetSelectedValueQuery,
-  useGetDataOnActionMutation
+  useGetDataOnActionMutation,
 } from "../service/global";
 
 export {
   useAdminLoginMutation,
   useUserLoginMutation,
+  useRegisterMutation,
 } from "../service/authApi";
