@@ -1,5 +1,5 @@
 import { baseQuery, baseQueryWithReauth } from "./apiConfig";
-import { createApi,  } from "@reduxjs/toolkit/dist/query/react";
+import { createApi } from "@reduxjs/toolkit/dist/query/react";
 
 const globalApi = createApi({
   reducerPath: "global",
@@ -34,6 +34,17 @@ const globalApi = createApi({
           };
         },
       }),
+      getDataOnAction: builder.mutation({
+        query: (data) => {
+          return {
+            url: data.url,
+            method: "GET",
+          };
+        },
+        invalidatesTags: (result, error, arg) => [
+          { type: "GetData", id: arg.id },
+        ],
+      }),
     };
   },
 });
@@ -42,6 +53,7 @@ export const {
   useGetDataQuery,
   usePostDataMutation,
   useGetSelectedValueQuery,
+  useGetDataOnActionMutation,
 } = globalApi;
 
-export {globalApi}
+export { globalApi };

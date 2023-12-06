@@ -20,7 +20,7 @@ export const authApi = createApi({
         return {
           url: "Login",
           method: "POST",
-          body: data.reqest,
+          body: data.request,
         };
       },
     }),

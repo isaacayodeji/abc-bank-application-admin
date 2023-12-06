@@ -36,12 +36,12 @@ const Sidebar = () => {
             Account
           </a>
         </li>
-        <li className="text-[18px] font-bold ">
+        {/* <li className="text-[18px] font-bold ">
           <a className="flex items-center gap-2" href="/admin/transaction" target="">
             <AiOutlineCreditCard />
             Transactions
           </a>
-        </li>
+        </li> */}
         <li className="text-[18px] font-bold ">
           <a className="flex items-center gap-2" href="/admin/approval" target="">
             <GoVerified />

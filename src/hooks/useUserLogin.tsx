@@ -16,12 +16,13 @@ const useUserLogin = () => {
 
   const handleLogin = useCallback(async () => {
     try {
+        console.log(state)
       const { data }: ApiResponse.Api = (await login(state)) as any;
       if (data?.status === 200) {
         Notify(data?.reasponseMessage as string, true);
         localStorage.setItem("***", Encryption.encrypt(data.token));
         localStorage.setItem("*****", Encryption.encrypt(data.data as any));
-        return navigate("", { replace: true });
+        return navigate("/user/overview", { replace: true });
       } else {
         Notify(data?.responseMessage as string, false);
       }

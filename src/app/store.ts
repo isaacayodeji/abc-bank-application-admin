@@ -4,7 +4,6 @@ import authReducer from "../features/authSlice";
 import { setupListeners } from "@reduxjs/toolkit/query";
 import { globalReducer } from "../features/globalSlice";
 import { setAllGlobalState, setGlobalState } from "../features/globalSlice";
-import userReducer from "../features/userSlice";
 import { setAuthKey, setAllAuthKey } from "../features/authSlice";
 import { globalApi } from "../service/global";
 
@@ -12,7 +11,6 @@ export const store = configureStore({
   reducer: {
     auth: authReducer,
     globalState: globalReducer,
-    user: userReducer,
     [authApi.reducerPath]: authApi.reducer,
     [globalApi.reducerPath]: globalApi.reducer,
   },
@@ -33,6 +31,7 @@ export {
   useGetDataQuery,
   usePostDataMutation,
   useGetSelectedValueQuery,
+  useGetDataOnActionMutation
 } from "../service/global";
 
 export {

@@ -1,4 +1,3 @@
-
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
 import { State } from "../application/state";
@@ -25,11 +24,13 @@ export const authSlice = createSlice({
       state = action.payload;
       return state;
     },
-    
+    logOut: (state,action: PayloadAction<State.Auth>) => {
+      localStorage.clear();
+     
+    },
   },
 });
 
-
-export const { setAllAuthKey, setAuthKey } = authSlice.actions;
+export const { setAllAuthKey, setAuthKey,logOut } = authSlice.actions;
 
 export default authSlice.reducer;

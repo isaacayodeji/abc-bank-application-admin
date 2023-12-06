@@ -1,5 +1,5 @@
 import { Button, Dropdown, Select, Space, Spin, Table, Tag } from "antd";
-import React from "react";
+import React, { useLayoutEffect } from "react";
 import DropDown from "../../../icons/dropdown.svg";
 import { ColumnProps } from "mdb-react-ui-kit/dist/types/free/layout/Column/types";
 
@@ -9,6 +9,11 @@ import { useApi } from "../../../hooks/useApi";
 import useApproval from "../../../hooks/useApproval";
 
 const Approval: React.FC = () => {
+
+  useLayoutEffect(() => {
+    document.title = "Approval | ABC";
+  }, []);
+
   const { HandlePost, result } = useApproval();
 
   const { response, isFetching } = useApi("/Customer/GetAllPendingApproval");

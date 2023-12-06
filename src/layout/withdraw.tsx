@@ -1,20 +1,31 @@
 import { Button, Col, Form, Input, Modal, Row } from "antd";
 import { useState } from "react";
+import { useAppSelector } from "../app/hooks";
+import useGlobalFieldRequest from "../hooks/useGlobalFieldRequest";
+import useWithdraw from "../hooks/useWithdraw";
 
 const Withdraw = () => {
-      const [isModalOpen, setIsModalOpen] = useState(false);
+  const state = useAppSelector((state) => {
+    return state.globalState;
+  });
+  const { GlobalRequest } = useGlobalFieldRequest(state);
 
-      const showModal = () => {
-        setIsModalOpen(true);
-      };
+  const { handleWithdraw, result } = useWithdraw();
 
-      const handleOk = () => {
-        setIsModalOpen(false);
-      };
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
-      const handleCancel = () => {
-        setIsModalOpen(false);
-      };
+  const showModal = () => {
+    setIsModalOpen(true);
+  };
+
+  const handleOk = (record:any) => {
+     handleWithdraw(record?.accountNumber, record?.amount); 
+    setIsModalOpen(false);
+  };
+
+  const handleCancel = () => {
+    setIsModalOpen(false);
+  };
   return (
     <div>
       <Button className="text-black border rounded" onClick={showModal}>
@@ -25,13 +36,14 @@ const Withdraw = () => {
         style={{ color: "black" }}
         title="Withdraw Transaction"
         open={isModalOpen}
-        onOk={handleOk}
+        onOk={() => handleWithdraw}
+        confirmLoading={result.isLoading}
         okType="primary"
         footer
         onCancel={handleCancel}
       >
         <div className="pt-4">
-          <Form layout="vertical" requiredMark="optional">
+          <Form layout="vertical" requiredMark="optional" onFinish={handleOk}>
             <Row gutter={12}>
               <Col md={12} xs={24}>
                 <Form.Item
@@ -43,11 +55,14 @@ const Withdraw = () => {
                 >
                   <Input
                     type="accountNumber"
-                    maxLength={8}
+                    maxLength={10}
                     value={"accountNumber"}
                     name="AccountNumber"
                     placeholder="0128873645"
                     className="py-2"
+                    onChange={(e) =>
+                      GlobalRequest("accounNumber", e.target.value)
+                    }
                   />
                 </Form.Item>
               </Col>
@@ -61,19 +76,26 @@ const Withdraw = () => {
                     type="number"
                     value={"amount"}
                     name="amount"
-                    placeholder="₦ 0.00"
+                    placeholder="£ 0.00"
                     className="py-2"
+                    onChange={(e) => GlobalRequest("amount", e.target.value)}
                   />
                 </Form.Item>
               </Col>
             </Row>
             <Col span={24}>
-              <Button className="w-[100%] h-10">Withdraw</Button>
+              <Button
+                className="w-[100%] h-10"
+                htmlType="submit"
+                loading={result.isLoading}
+              >
+                Withdraw
+              </Button>
             </Col>
           </Form>
         </div>
       </Modal>
     </div>
   );
-}
-export default Withdraw
+};
+export default Withdraw;

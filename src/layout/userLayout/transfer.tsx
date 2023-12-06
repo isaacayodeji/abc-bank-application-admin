@@ -1,20 +1,34 @@
 import { Button, Col, Form, Input, Modal, Row } from "antd";
 import { useState } from "react";
+import useTransfer from "../../hooks/useTransfer";
+import { useAppSelector } from "../../app/hooks";
+import useGlobalFieldRequest from "../../hooks/useGlobalFieldRequest";
 
 const Transfer = () => {
-     const [isModalOpen, setIsModalOpen] = useState(false);
 
-     const showModal = () => {
-       setIsModalOpen(true);
-     };
+   const state = useAppSelector((state) => {
+     return state.globalState;
+   });
 
-     const handleOk = () => {
-       setIsModalOpen(false);
-     };
+   const { GlobalRequest } = useGlobalFieldRequest(state);
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
-     const handleCancel = () => {
-       setIsModalOpen(false);
-     };
+  const { handleTransfer, Result } = useTransfer();
+
+  const showModal = () => {
+    setIsModalOpen(true);
+  };
+
+  const handleOk = (record:any) => {
+    handleTransfer(record?.amount, record?.targetAccountNumber);
+    setIsModalOpen(false);
+  };
+
+  const handleCancel = () => {
+    setIsModalOpen(false);
+  };
+
+  
 
   return (
     <div className="">
@@ -26,29 +40,35 @@ const Transfer = () => {
         style={{ color: "black" }}
         title="Transfer Transaction"
         open={isModalOpen}
-        onOk={handleOk}
+        onOk={(record: any) => {
+          handleTransfer(record?.amount, record?.targetAccountNumber);
+        }}
+        confirmLoading={Result.isLoading}
         okType="primary"
         footer
         onCancel={handleCancel}
       >
         <div className="pt-4">
-          <Form layout="vertical" requiredMark="optional">
+          <Form layout="vertical" requiredMark="optional" onFinish={handleOk}>
             <Row gutter={12}>
               <Col md={12} xs={24}>
                 <Form.Item
-                  label={<div className="font-semibold">Account Number</div>}
-                  rules={[
-                    { required: true, message: "Account Number required" },
-                  ]}
-                  name="accountNumber"
+                  label={
+                    <div className="font-semibold">Target Account Number</div>
+                  }
+                  rules={[{ required: true, message: "Amount required" }]}
+                  name="targetAccountNumber"
                 >
                   <Input
                     type="number"
-                    maxLength={8}
-                    value={"email"}
-                    placeholder="0128873645"
-                    name="accountNumber"
+                    // value={"amount"}
+                    maxLength={10}
+                    name="targetAccountNumber"
+                    placeholder="09847264"
                     className="py-2"
+                    onChange={(e) =>
+                      GlobalRequest("accountNumber", e.target.value)
+                    }
                   />
                 </Form.Item>
               </Col>
@@ -62,19 +82,26 @@ const Transfer = () => {
                     type="number"
                     value={"amount"}
                     name="amount"
-                    placeholder="₦ 0.00"
+                    placeholder="£ 0.00"
                     className="py-2"
+                    onChange={(e) => GlobalRequest("amount", e.target.value)}
                   />
                 </Form.Item>
               </Col>
             </Row>
             <Col span={24}>
-              <Button className="w-[100%] h-10">Transfer</Button>
+              <Button
+                className="w-[100%] h-10"
+                htmlType="submit"
+                loading={Result.isLoading}
+              >
+                Transfer
+              </Button>
             </Col>
           </Form>
         </div>
       </Modal>
     </div>
   );
-}
-export default Transfer
+};
+export default Transfer;

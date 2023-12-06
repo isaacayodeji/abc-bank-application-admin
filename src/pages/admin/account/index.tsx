@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useLayoutEffect } from "react";
 import { Select, Spin, Table } from "antd";
 import useApproval from "../../../hooks/useApproval";
 import { useApi } from "../../../hooks/useApi";
@@ -6,6 +6,9 @@ import DropDown from "../../../icons/dropdown.svg";
 import { ColumnProps } from "mdb-react-ui-kit/dist/types/free/layout/Column/types";
 
 const Account: React.FC = () => {
+  useLayoutEffect(() => {
+    document.title = "Account | ABC";
+  }, []);
 
   // const state = useAppSelector((state) => {
   //   return state.globalState;
@@ -39,25 +42,25 @@ const Account: React.FC = () => {
       ellipsis: true,
     },
     {
-      title: "Total Balance",
+      title: "Total Balance (£)",
       key: "totalBalance",
       dataIndex: "totalBalance",
       ellipsis: true,
     },
     {
-      title: "Credit Amount",
+      title: "Credit Amount (£)",
       key: "crAmount",
       ellipsis: true,
       dataIndex: "crAmount",
     },
     {
-      title: "Debit Amount",
+      title: "Debit Amount (£)",
       key: "drAmount",
       ellipsis: true,
       dataIndex: "drAmount",
     },
     {
-      title: "Over Draft",
+      title: "Over Draft (£)",
       key: "overDraft",
       ellipsis: true,
       dataIndex: "overDraft",
@@ -105,7 +108,12 @@ const Account: React.FC = () => {
         spinning={isFetching || result.isLoading}
         className="border border-[#C4C4C4] rounded-md mb-10 "
       >
-        <Table scroll={{x:'1600px'}} columns={columns} dataSource={response} bordered />
+        <Table
+          scroll={{ x: "1600px" }}
+          columns={columns}
+          dataSource={response}
+          bordered
+        />
       </Spin>
     </div>
   );

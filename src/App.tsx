@@ -9,7 +9,6 @@ import Transaction from "./pages/admin/transaction";
 import { PageNotFound } from "./page-not-found";
 import { ProtectedRoutes } from "./protected-route";
 import Approval from "./pages/admin/approvals";
-import Redirect from "./pages/Redirect";
 import { AuthLayout } from "./layout/auth-layout";
 import Register from "./pages/auth/register";
 import { Suspense } from "react";
@@ -54,7 +53,8 @@ function App() {
             }
           >
             <Route path="/user/overview" element={<UserOverview />} />
-            <Route path="/user/overview" element={<UserTransaction />} />
+            <Route path="/user/transaction" element={<UserTransaction />} />
+            {/* <Route path="*" element={<PageNotFound />} /> */}
           </Route>
         </Routes>
       </BrowserRouter>

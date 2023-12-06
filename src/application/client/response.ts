@@ -5,8 +5,44 @@ export namespace ApiResponse {
     status?: number;
     token?: string;
   }
+  export class GetDeposit {
+    accountNumber?: number;
+    amount?: number;
+  }
+
+  export class GetAccountDetails {
+    id?: number;
+    accountName?: string;
+    accountNumber?: string;
+    totalBalance?: number;
+    crAmount?: number;
+    drAmount?: number;
+    overDraft?: number;
+    currentBalance?: number;
+    phoneNumber?: string;
+    dateCreated?: string;
+    dateUpdated?: string;
+    customerId?: number;
+  }
+  export class GetTransactionStatement {
+    accountNumber?: string;
+    amount?: number;
+    dateCreated?: string;
+    senderName?: string;
+    senderAccount?: string;
+    senderBank?: string;
+    remarks?: string;
+    beneficiaryName?: string;
+    beneficiaryAccount?: string;
+    beneficiaryBank?: string;
+    type?: string;
+    transMethod?: string;
+    sessionId?: string;
+    customerAccountId?: number;
+  }
   export class UserInfo {
     id?: number;
+    accountNumber?: any;
     fullName?: string;
     address?: string;
     approvedBy?: string;
@@ -19,6 +55,9 @@ export namespace ApiResponse {
     isApproved?: boolean;
     dateCreated?: string;
     dateModified?: any;
+    firstName?: string;
+    middleName?: string;
+    phoneNumber?: string;
   }
   export class SignUpInfo {
     firstName?: string;

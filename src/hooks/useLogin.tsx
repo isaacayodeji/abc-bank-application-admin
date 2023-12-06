@@ -8,7 +8,7 @@ import { Encryption } from "../fuction/encryption";
 import { useNavigate } from "react-router-dom";
 
 export const useLogin = () => {
-  const state = useAppSelector((state) => {
+  const state = useAppSelector((state) => { 
     return state.auth;
   });
   const navigate = useNavigate();

@@ -1,20 +1,32 @@
 import { Button, Col, Form, Input, Modal, Row } from "antd";
 import { useState } from "react";
+import { useAppSelector } from "../app/hooks";
+import useDeposit from "../hooks/useDeposit";
+import useGlobalFieldRequest from "../hooks/useGlobalFieldRequest";
 
 const Deposit = () => {
-     const [isModalOpen, setIsModalOpen] = useState(false);
+  const state = useAppSelector((state) => {
+    return state.globalState;
+  });
+  
+  const { GlobalRequest } = useGlobalFieldRequest(state);
 
-     const showModal = () => {
-       setIsModalOpen(true);
-     };
+  const { handleDeposit, result } = useDeposit();
 
-     const handleOk = () => {
-       setIsModalOpen(false);
-     };
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
-     const handleCancel = () => {
-       setIsModalOpen(false);
-     };
+  const showModal = () => {
+    setIsModalOpen(true);
+  };
+
+  const handleOk = (record:any) => {
+     handleDeposit(record?.accountNumber, record?.amount);
+    setIsModalOpen(false);
+  };
+
+  const handleCancel = () => {
+    setIsModalOpen(false);
+  };
 
   return (
     <div className="">
@@ -26,13 +38,14 @@ const Deposit = () => {
         style={{ color: "black" }}
         title="Deposit Transaction"
         open={isModalOpen}
-        onOk={handleOk}
+        onOk={() => handleDeposit}
+        confirmLoading={result.isLoading}
         okType="primary"
-        footer
+        footer={null}
         onCancel={handleCancel}
       >
         <div className="pt-4">
-          <Form layout="vertical" requiredMark="optional">
+          <Form layout="vertical" requiredMark="optional" onFinish={handleOk}>
             <Row gutter={12}>
               <Col md={12} xs={24}>
                 <Form.Item
@@ -44,11 +57,14 @@ const Deposit = () => {
                 >
                   <Input
                     type="number"
-                    maxLength={8}
-                    value={"email"}
+                    maxLength={10}
+                    // value={state.request}
                     placeholder="0128873645"
                     name="accountNumber"
                     className="py-2"
+                    onChange={(e) =>
+                      GlobalRequest("accountNumber", e.target.value)
+                    }
                   />
                 </Form.Item>
               </Col>
@@ -60,21 +76,29 @@ const Deposit = () => {
                 >
                   <Input
                     type="number"
-                    value={"amount"}
+                    // value={state.request}
                     name="amount"
-                    placeholder="₦ 0.00"
+                    placeholder="£ 0.00"
                     className="py-2"
+                    onChange={(e) => GlobalRequest("amount", e.target.value)}
                   />
                 </Form.Item>
               </Col>
             </Row>
             <Col span={24}>
-              <Button className="w-[100%] h-10">Deposit</Button>
+              <Button
+                // onClick={() => handleDeposit}
+                loading={result.isLoading}
+                htmlType="submit"
+                className="w-[100%] h-10"
+              >
+                Deposit
+              </Button>
             </Col>
           </Form>
         </div>
       </Modal>
     </div>
   );
-}
-export default Deposit
+};
+export default Deposit;
