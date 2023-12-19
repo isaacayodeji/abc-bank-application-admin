@@ -6,11 +6,13 @@ import { globalReducer } from "../features/globalSlice";
 import { setAllGlobalState, setGlobalState } from "../features/globalSlice";
 import { setAuthKey, setAllAuthKey } from "../features/authSlice";
 import { globalApi } from "../service/global";
+import { themeReducer } from "../service/theme";
 
 export const store = configureStore({
   reducer: {
     auth: authReducer,
     globalState: globalReducer,
+    theme: themeReducer,
     [authApi.reducerPath]: authApi.reducer,
     [globalApi.reducerPath]: globalApi.reducer,
   },
@@ -38,4 +40,5 @@ export {
   useAdminLoginMutation,
   useUserLoginMutation,
   useRegisterMutation,
+  useResetPasswordMutation,
 } from "../service/authApi";

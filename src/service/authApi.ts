@@ -33,6 +33,20 @@ export const authApi = createApi({
         };
       },
     }),
+    resetPassword: builder.mutation({
+      query: (data) => {
+        return {
+          url: "resetPassword",
+          method: "POST",
+          body: data.request,
+        };
+      },
+    }),
   }),
 });
-export const { useAdminLoginMutation, useUserLoginMutation,useRegisterMutation } = authApi;
+export const {
+  useAdminLoginMutation,
+  useUserLoginMutation,
+  useRegisterMutation,
+  useResetPasswordMutation,
+} = authApi;

@@ -13,7 +13,7 @@ export const useUserInfo = () => {
 
       setUserInfo(loginResponse);
     } else {
-      window.location.href = "/";
+    //  window.location.href = "/";
     }
   }, []);
 

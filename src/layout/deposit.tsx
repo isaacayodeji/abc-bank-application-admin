@@ -8,7 +8,7 @@ const Deposit = () => {
   const state = useAppSelector((state) => {
     return state.globalState;
   });
-  
+
   const { GlobalRequest } = useGlobalFieldRequest(state);
 
   const { handleDeposit, result } = useDeposit();
@@ -19,9 +19,11 @@ const Deposit = () => {
     setIsModalOpen(true);
   };
 
-  const handleOk = (record:any) => {
-     handleDeposit(record?.accountNumber, record?.amount);
-    setIsModalOpen(false);
+  const handleOk = (record: any) => {
+    handleDeposit(record?.accountNumber, record?.amount);
+    if (result.isSuccess) {
+     return setIsModalOpen(false);
+    }
   };
 
   const handleCancel = () => {
@@ -30,7 +32,10 @@ const Deposit = () => {
 
   return (
     <div className="">
-      <Button className="text-black border rounded" onClick={showModal}>
+      <Button
+        className="text-white border rounded bg-green-400 "
+        onClick={showModal}
+      >
         Deposit
       </Button>
       <Modal

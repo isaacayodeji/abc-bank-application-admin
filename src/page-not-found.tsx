@@ -13,7 +13,7 @@ export const PageNotFound: React.FC = () => {
         title={<h1 className="font-bold">Page Not Found</h1>}
         subTitle="Sorry, the page you visited does not exist."
         extra={
-          <Button type="primary" onClick={() => window.history.back()}>
+          <Button type="primary" onClick={() => window.history.back()} className="bg-blue-600">
             Go back
           </Button>
         }

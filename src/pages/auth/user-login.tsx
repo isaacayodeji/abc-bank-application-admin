@@ -3,19 +3,19 @@ import { motion } from "framer-motion";
 import { useAppSelector } from "../../app/hooks";
 import useFieldRequest from "../../hooks/useFieldRequest";
 import useUserLogin from "../../hooks/useUserLogin";
+import { Link } from "react-router-dom";
 
 const UserLogin = () => {
+  const state = useAppSelector((state) => {
+    return state.auth;
+  });
+  const { AuthRequest } = useFieldRequest(state);
 
-     const state = useAppSelector((state) => {
-       return state.auth;
-     });
-     const { AuthRequest } = useFieldRequest(state);
-
-     const { result, handleLogin } = useUserLogin();
+  const { result, handleLogin } = useUserLogin();
 
   return (
     <>
-      <div className="h-screen sm:h-[100vh] grid grid-rows-[5rem_1fr]">
+      <div className="h-screen sm:h-[100vh] grid grid-rows-[5rem_1fr] ">
         <main className="flex justify-center items-center ">
           <motion.div
             initial={{ scale: 0.7 }}
@@ -26,9 +26,9 @@ const UserLogin = () => {
               type: "spring",
               stiffness: 200,
             }}
-            className="p-5 lg:p-20 h-[90%] w-[95%] max-w-[45rem]"
+            className="p-5 lg:p-20 h-[90%] w-[95%] max-w-[41rem]"
           >
-            <h1 className=" text-blue-600 font-bold font-[gelionRegular] text-xl lg:text-3xl text-center lg:text-start">
+            <h1 className=" text-blue-600 font-bold font-[gelionRegular] text-xl lg:text-3xl text-center lg:text-start lg:w-[50rem]">
               Welcome, Sign in to User account
             </h1>
 
@@ -67,9 +67,11 @@ const UserLogin = () => {
                       onChange={(e) => AuthRequest("password", e.target.value)}
                     />
                   </Form.Item>
-                  <p className="text-blue-600 font-semibold absolute bottom-0 right-0 cursor-pointer hover:transition-all ">
-                    Forgot password?
-                  </p>
+                  <Link to="user/forgot-password">
+                    <p className="text-blue-600 font-semibold absolute bottom-0 right-0 cursor-pointer hover:transition-all ">
+                      Forgot password?
+                    </p>
+                  </Link>
                 </Col>
 
                 <Col span={24}>
@@ -98,5 +100,5 @@ const UserLogin = () => {
       </div>
     </>
   );
-}
-export default UserLogin
+};
+export default UserLogin;

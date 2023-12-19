@@ -24,7 +24,7 @@ const Sidebar = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [result.data]);
   // console.log(response);
-
+let details = result?.data?.data;
 
   return (
     <nav className="border-r border-[#c4c4c4] hidden lg:block overflow-auto">
@@ -38,7 +38,7 @@ const Sidebar = () => {
         </div>
         <h2>{userInfo.firstName}</h2>
         <h2>{userInfo.email}</h2>
-        <h2>{result?.data?.data.accountNumber}</h2>
+        <h2>{details?.accountNumber}</h2>
       </div>
       <hr />
       {/* user menu */}

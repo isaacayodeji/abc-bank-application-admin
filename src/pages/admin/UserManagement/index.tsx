@@ -1,77 +1,51 @@
 import { Button, Dropdown, Select, Space, Spin, Table, Tag } from "antd";
-import React, { useLayoutEffect } from "react";
 import DropDown from "../../../icons/dropdown.svg";
 import { ColumnProps } from "mdb-react-ui-kit/dist/types/free/layout/Column/types";
-
 import more from "../../../icons/three-dot.svg";
-
 import { useApi } from "../../../hooks/useApi";
-import useApproval from "../../../hooks/useApproval";
+import useStatusAction from "../../../hooks/useStatusAction";
 
-const Approval: React.FC = () => {
-
-  useLayoutEffect(() => {
-    document.title = "Approval | ABC";
-  }, []);
-
-  const { HandlePost, result } = useApproval();
-
-  const { response, isFetching } = useApi("/Customer/GetAllPendingApproval");
+const UserManagement = () => {
+  const { HandleValidation, resultDetails } = useStatusAction();
+  const { response, isFetching } = useApi("/Customer/GetAllCustomer");
 
   const dropDownItems = (record: any) => {
     return [
       {
         label: (
-          <Button type="text" onClick={() => HandlePost(record?.id, "approve")}>
-            Approve
+          <Button
+            type="text"
+            onClick={() => HandleValidation(record?.id, "delete")}
+          >
+            Delete
           </Button>
         ),
-        key: "0",
+        key: "2",
       },
       {
         label: (
           <Button
             type="text"
-            onClick={() => HandlePost(record?.id, "disapprove")}
+            onClick={() => HandleValidation(record?.id, "deactivate")}
           >
-            Disapprove
+            Deactivate
           </Button>
         ),
-        key: "1",
+        key: "3",
       },
-      // {
-      //   label: (
-      //     <Button type="text" onClick={() => HandlePost(record?.id, "delete")}>
-      //       Delete
-      //     </Button>
-      //   ),
-      //   key: "2",
-      // },
-      // {
-      //   label: (
-      //     <Button
-      //       type="text"
-      //       onClick={() => HandlePost(record?.id, "deactivate")}
-      //     >
-      //       Deactivate
-      //     </Button>
-      //   ),
-      //   key: "3",
-      // },
-      // {
-      //   label: (
-      //     <Button
-      //       type="text"
-      //       onClick={() => HandlePost(record?.id, "activate")}
-      //     >
-      //       Activate
-      //     </Button>
-      //   ),
-      //   key: "4",
-      // },
+      {
+        label: (
+          <Button
+            type="text"
+            onClick={() => HandleValidation(record?.id, "activate")}
+          >
+            Activate
+          </Button>
+        ),
+        key: "4",
+      },
     ];
   };
-
   const columns: ColumnProps[] = [
     {
       title: "SN",
@@ -83,6 +57,7 @@ const Approval: React.FC = () => {
       title: "First Name",
       key: "firstName",
       dataIndex: "firstName",
+      
       ellipsis: true,
     },
     {
@@ -122,10 +97,10 @@ const Approval: React.FC = () => {
       render(_: any, record: any) {
         return (
           <div>
-            {record?.status === "Approved" ? (
-              <Tag color="green">Approved</Tag>
+            {record?.isActive === true ? (
+              <Tag color="green">Activated</Tag>
             ) : (
-              <Tag color="orange">Pending</Tag>
+              <Tag color="orange">Deactivated</Tag>
             )}
           </div>
         );
@@ -157,11 +132,10 @@ const Approval: React.FC = () => {
       },
     },
   ];
-
   return (
     <div>
       <h2 className="border-b border-[#c4c4c4] py-5 flex justify-between items-center font-bold text-[20px]">
-        Approval
+        User Management
       </h2>
       <div className="grid md:flex md:items-center justify-between gap-5 pt-5 py-5">
         <Select
@@ -174,10 +148,17 @@ const Approval: React.FC = () => {
           <Select.Option value="Approved">Approved</Select.Option>
           <Select.Option value="Disapproved">Disapproved</Select.Option>
         </Select>
+
+        {/* <Input
+          placeholder="Search"
+          prefix={<img src={SearchIcon} alt="" className="w-4 py-2" />}
+          className="hidden md:flex w-[40%]"
+          // onChange={(e) => onChangeSearch(e.target.value)}
+        /> */}
       </div>
       <Spin
         tip="Please wait..."
-        spinning={isFetching || result.isLoading}
+        spinning={isFetching || resultDetails.isLoading}
         className="border border-[#C4C4C4] rounded-md mb-10 "
       >
         <Table
@@ -190,4 +171,4 @@ const Approval: React.FC = () => {
     </div>
   );
 };
-export default Approval;
+export default UserManagement;

@@ -5,18 +5,16 @@ import icon4 from "../../icons/ellips4.svg";
 import { useGetDataOnActionMutation } from "../../service/global";
 import { useEffect, useLayoutEffect, useState } from "react";
 import { useUserInfo } from "../../hooks/userInfo";
-import { Spin } from "antd";
+import { Button, Dropdown, MenuProps, Space, Spin } from "antd";
 import { LoadingOutlined } from "@ant-design/icons";
-import Deposit from "../../layout/deposit";
-import Withdraw from "../../layout/withdraw";
 import Transfer from "../../layout/userLayout/transfer";
+import useOverdraft from "../../hooks/useOverdraft";
 
 const UserOverview = () => {
-
   useLayoutEffect(() => {
     document.title = "Overview | ABC";
   }, []);
-  
+
   const { userInfo } = useUserInfo();
   const [response, setResponse] = useState();
   const [getData, result] = useGetDataOnActionMutation();
@@ -35,7 +33,36 @@ const UserOverview = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [result.data]);
   // console.log(response);
+  let details = result?.data?.data;
 
+  const { handleOverdraft } = useOverdraft();
+
+  const items: MenuProps["items"] = [
+    {
+      key: "1",
+      label: (
+        <button
+          onClick={(record: any) => {
+            handleOverdraft('withdraw');
+          }}
+        >
+          withdraw Overdraft
+        </button>
+      ),
+    },
+    {
+      key: "2",
+      label: (
+        <button
+          onClick={(record: any) => {
+            handleOverdraft('get');
+          }}
+        >
+          Get Overdraft
+        </button>
+      ),
+    },
+  ];
   return (
     <div>
       <h2 className="border-b border-[#c4c4c4] py-5 flex justify-between items-center font-bold text-[20px]">
@@ -53,9 +80,7 @@ const UserOverview = () => {
             <div className="space-y-2">
               <img src={icon1} alt="" />
               <p className="text-[19px] font-medium">Total Balance</p>
-              <b className="text-[22px]">
-                £ {result?.data?.data.currentBalance}
-              </b>
+              <b className="text-[22px]">£ {details.currentBalance}</b>
             </div>
           </div>
           {/* row2 */}
@@ -63,7 +88,7 @@ const UserOverview = () => {
             <div className="space-y-2">
               <img src={icon3} alt="" />
               <p className="text-[19px] font-medium">Debit</p>
-              <b className="text-[22px]">£ {result?.data?.data.drAmount}</b>
+              <b className="text-[22px]">£ {details.drAmount}</b>
             </div>
           </div>
           {/* row3 */}
@@ -71,7 +96,7 @@ const UserOverview = () => {
             <div className="space-y-2">
               <img src={icon2} alt="" />
               <p className="text-[19px] font-medium">Credit</p>
-              <b className="text-[22px]">£ {result?.data?.data.crAmount}</b>
+              <b className="text-[22px]">£ {details.crAmount}</b>
             </div>
           </div>
           {/* row4 */}
@@ -79,14 +104,24 @@ const UserOverview = () => {
             <div className="space-y-2">
               <img src={icon4} alt="" />
               <p className="text-[19px] font-medium">Overdraft</p>
-              <b className="text-[22px]">£ {result?.data?.data.overDraft}</b>
+
+              <b className="text-[22px]">£ {details.overDraft}</b>
             </div>
           </div>
         </div>
       )}
-
-      <div className="flex gap-4 lg:hidden">
-        <Transfer/>
+      <div className="flex items-center gap-5 pt-6 ">
+        <div className="flex gap-4 lg:hidden">
+          <Transfer />
+        </div>
+        <Dropdown menu={{ items }}>
+          <Button
+            className="bg-black text-white hover:bg-[#f2f0f0!important]"
+            onClick={(e) => e.preventDefault()}
+          >
+            <Space>Overdraft details</Space>
+          </Button>
+        </Dropdown>
       </div>
     </div>
   );

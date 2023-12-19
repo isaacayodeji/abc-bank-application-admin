@@ -1,8 +1,14 @@
 import { Outlet } from "react-router-dom";
 import Sidebar from "./sidebar";
 import Topbar from "./topbar";
+import { useEffect, useLayoutEffect } from "react";
 
 const UserPageLayout = () => {
+    useEffect(() => {
+      if (!localStorage.getItem("***") ) {
+        return window.history.back();
+      }
+    },[]);
   return (
     <div className="h-screen grid grid-rows-[4rem_1fr]">
       <Topbar />

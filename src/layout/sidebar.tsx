@@ -1,6 +1,6 @@
 import profile from "../images/profile.png";
 import { AiOutlineAppstore } from "react-icons/ai";
-import { AiOutlineUser, AiOutlineCreditCard } from "react-icons/ai";
+import { AiOutlineUser, AiFillTool } from "react-icons/ai";
 import { GoVerified } from "react-icons/go";
 import { useUserInfo } from "../hooks/userInfo";
 
@@ -25,13 +25,21 @@ const Sidebar = () => {
       {/*admin menu */}
       <ul className="flex pl-12 flex-col gap-6  p-4 pt-8">
         <li className="text-[18px] font-bold ">
-          <a className="flex items-center gap-2" href="/admin/overview" target="">
+          <a
+            className="flex items-center gap-2"
+            href="/admin/overview"
+            target=""
+          >
             <AiOutlineAppstore />
             Overview
           </a>
         </li>
         <li className="text-[18px] font-bold ">
-          <a className="flex items-center gap-2" href="/admin/account" target="">
+          <a
+            className="flex items-center gap-2"
+            href="/admin/account"
+            target=""
+          >
             <AiOutlineUser />
             Account
           </a>
@@ -43,9 +51,23 @@ const Sidebar = () => {
           </a>
         </li> */}
         <li className="text-[18px] font-bold ">
-          <a className="flex items-center gap-2" href="/admin/approval" target="">
+          <a
+            className="flex items-center gap-2"
+            href="/admin/approval"
+            target=""
+          >
             <GoVerified />
             Approval
+          </a>
+        </li>
+        <li className="text-[18px] font-bold ">
+          <a
+            className="flex items-center gap-2"
+            href="/admin/user-management"
+            target=""
+          >
+            <AiFillTool />
+            Management
           </a>
         </li>
       </ul>

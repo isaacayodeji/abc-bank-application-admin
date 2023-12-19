@@ -8,7 +8,7 @@ import { Encryption } from "../fuction/encryption";
 import { useNavigate } from "react-router-dom";
 
 export const useLogin = () => {
-  const state = useAppSelector((state) => { 
+  const state = useAppSelector((state) => {
     return state.auth;
   });
   const navigate = useNavigate();
@@ -17,14 +17,15 @@ export const useLogin = () => {
   const handleLogin = useCallback(async () => {
     try {
       const { data }: ApiResponse.Api = (await login(state)) as any;
-
       if (data?.status === 200) {
         Notify(data?.responseMessage as string, true);
-        localStorage.setItem("***", Encryption.encrypt(data.token));
+        localStorage.setItem("****", Encryption.encrypt(data.token));
         localStorage.setItem("*****", Encryption.encrypt(data?.data as any));
-        return navigate("/admin/overview", {
-          replace: true,
-        });
+        console.log(data)
+        navigate("/admin/overview")
+        // return navigate("/admin/overview", {
+        //   replace: true,
+        // });
       } else {
         Notify(data?.responseMessage as string, false);
       }

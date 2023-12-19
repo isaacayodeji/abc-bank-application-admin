@@ -16,7 +16,7 @@ const useUserLogin = () => {
 
   const handleLogin = useCallback(async () => {
     try {
-        console.log(state)
+        // console.log(state)
       const { data }: ApiResponse.Api = (await login(state)) as any;
       if (data?.status === 200) {
         Notify(data?.reasponseMessage as string, true);

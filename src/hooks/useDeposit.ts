@@ -12,8 +12,8 @@ const useDeposit = () => {
 
   const handleDeposit = useCallback(
     async (accountNumber: number, amount: number) => {
-        console.log(state);
-        
+      // console.log(state);
+
       try {
         const { data }: ApiResponse.Api = (await postData({
           ...state,
@@ -22,8 +22,11 @@ const useDeposit = () => {
 
         if (data.status === 200) {
           Notify(data?.responseMessage as string, true);
+          setTimeout(() => {
+            window.location.reload();
+          }, 2000);
         } else {
-         Notify("Invalid Account Number", false);
+          Notify("Invalid Account Number", false);
         }
       } catch (error) {
         console.log(error);

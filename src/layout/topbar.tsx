@@ -125,13 +125,13 @@ const Topbar = () => {
           <Deposit />
           <Withdraw />
         </div>
-        <button
-          className="font-bold text-[15px] text-white flex items-center gap-2 px-4 py-2 rounded bg-blue-600 max-lg:hidden"
+        <Button
+          className="font-bold text-[15px] text-white flex items-center gap-2 px-4 py-2 rounded bg-blue-600 max-lg:hidden translate-x-0"
           onClick={() => handleLogout()}
         >
           Logout
           <CiLogout />
-        </button>
+        </Button>
 
         <Space className="block lg:hidden">
           <Button className="text-black" onClick={showDrawer}>

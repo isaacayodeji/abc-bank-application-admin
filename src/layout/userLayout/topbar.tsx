@@ -82,13 +82,13 @@ const Topbar = () => {
         <div className="flex gap-4 max-lg:hidden">
           <Transfer />
         </div>
-        <button
+        <Button
           className="font-bold text-[15px] text-white flex items-center gap-2 px-4 py-2 rounded bg-blue-600 max-lg:hidden"
           onClick={() => handleLogout()}
         >
           Logout
           <CiLogout />
-        </button>
+        </Button>
         <Space className="block lg:hidden">
           <Button className="text-black" onClick={showDrawer}>
             <AiOutlineMenu size={18} />

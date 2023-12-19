@@ -8,6 +8,8 @@ import { ColumnProps } from "mdb-react-ui-kit/dist/types/free/layout/Column/type
 const Account: React.FC = () => {
   useLayoutEffect(() => {
     document.title = "Account | ABC";
+
+    
   }, []);
 
   // const state = useAppSelector((state) => {

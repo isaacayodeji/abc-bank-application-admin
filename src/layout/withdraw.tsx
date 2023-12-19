@@ -18,9 +18,11 @@ const Withdraw = () => {
     setIsModalOpen(true);
   };
 
-  const handleOk = (record:any) => {
-     handleWithdraw(record?.accountNumber, record?.amount); 
-    setIsModalOpen(false);
+  const handleOk = (record: any) => {
+    handleWithdraw(record?.accountNumber, record?.amount);
+    if (result.isSuccess) {
+      return setIsModalOpen(false);
+    }
   };
 
   const handleCancel = () => {
@@ -28,7 +30,10 @@ const Withdraw = () => {
   };
   return (
     <div>
-      <Button className="text-black border rounded" onClick={showModal}>
+      <Button
+        className="text-white border rounded bg-orange-400 hover:text-black"
+        onClick={showModal}
+      >
         Withdraw
       </Button>
       <Modal

@@ -70,4 +70,23 @@ export namespace ApiResponse {
     gender?: string;
     password?: string;
   }
+
+  export class GetAllCustomer {
+    id?: number ;
+    firstName?: string;
+    middleName?: string;
+    surname?: string;
+    phoneNumber?: string;
+    email?: string;
+    hashedPassed?: string;
+    dob?: string;
+    address?: string;
+    gender?: any;
+    isActive?: boolean;
+    isApproved?: boolean;
+    dateCreated?: string;
+    dateModified?: string;
+    approvedBy?: string;
+    status?: string;
+  }
 }

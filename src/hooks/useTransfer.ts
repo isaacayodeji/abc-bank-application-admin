@@ -38,10 +38,13 @@ const useTransfer = () => {
       try {
         const { data }: ApiResponse.Api = await (postData({
           ...state,
-          url: `Transaction/transfer?sourceAccountNumber=${result?.data?.data.accountNumber}&amount=${amount}&targetAccountNumber=${targetAccountNumber}`,
+          url: `Transaction/transfer?sourceAccountNumber=${result?.data?.data?.accountNumber}&amount=${amount}&targetAccountNumber=${targetAccountNumber}`,
         }) as any);
         if (data.status === 200) {
           Notify(data?.responseMessage as string, true);
+         setTimeout(() => {
+           window.location.reload();
+         }, 2000);
         } else {
           Notify("Invalid Account Number", false);
         }

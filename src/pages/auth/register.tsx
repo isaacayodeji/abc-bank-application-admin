@@ -41,9 +41,9 @@ const Register = () => {
             type: "spring",
             stiffness: 200,
           }}
-          className="p-5 lg:p-20 h-[90%] w-[95%] max-w-[40rem]" 
+          className="p-5 lg:p-20 h-[90%] w-[95%] max-w-[50rem]" 
         >
-          <h1 className=" text-blue-600 font-bold font-[gelionRegular] text-xl lg:text-3xl text-center lg:text-start">
+          <h1 className=" text-blue-600 font-bold font-[gelionRegular] text-xl lg:text-3xl text-center lg:text-start ">
             Register your account
           </h1>
 

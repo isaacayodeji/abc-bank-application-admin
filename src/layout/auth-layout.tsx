@@ -3,11 +3,7 @@ import React, { useLayoutEffect } from "react";
 import { Outlet, useLocation, useNavigate } from "react-router-dom";
 
 export const AuthLayout: React.FC = () => {
-  // useLayoutEffect(() => {
-  //   if (!localStorage.getItem("*****")) {
-  //     window.history.back()
-  //   }
-  // }, []);
+ 
   const navigate = useNavigate();
   const { pathname } = useLocation();
 

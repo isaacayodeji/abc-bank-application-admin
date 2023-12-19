@@ -5,12 +5,11 @@ import { useAppSelector } from "../../app/hooks";
 import useGlobalFieldRequest from "../../hooks/useGlobalFieldRequest";
 
 const Transfer = () => {
+  const state = useAppSelector((state) => {
+    return state.globalState;
+  });
 
-   const state = useAppSelector((state) => {
-     return state.globalState;
-   });
-
-   const { GlobalRequest } = useGlobalFieldRequest(state);
+  const { GlobalRequest } = useGlobalFieldRequest(state);
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   const { handleTransfer, Result } = useTransfer();
@@ -19,20 +18,24 @@ const Transfer = () => {
     setIsModalOpen(true);
   };
 
-  const handleOk = (record:any) => {
+  const handleOk = (record: any) => {
     handleTransfer(record?.amount, record?.targetAccountNumber);
-    setIsModalOpen(false);
+    if (!Result.isLoading) {
+      return setIsModalOpen(false);
+    }
+    window.location.reload();
   };
 
   const handleCancel = () => {
     setIsModalOpen(false);
   };
 
-  
-
   return (
     <div className="">
-      <Button className="text-black border rounded" onClick={showModal}>
+      <Button
+        className="text-white bg-green-400 border rounded"
+        onClick={showModal}
+      >
         Transfer
       </Button>
       <Modal
@@ -67,7 +70,7 @@ const Transfer = () => {
                     placeholder="09847264"
                     className="py-2"
                     onChange={(e) =>
-                      GlobalRequest("accountNumber", e.target.value)
+                      GlobalRequest("targetAccountNumber", e.target.value)
                     }
                   />
                 </Form.Item>

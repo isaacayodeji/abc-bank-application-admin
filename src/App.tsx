@@ -16,49 +16,61 @@ import { Suspense } from "react";
 import { UserOverview, UserTransaction } from "./pages/user/index";
 import UserPageLayout from "./layout/userLayout/user-page-layout";
 import UserLogin from "./pages/auth/user-login";
+import ForgotPassword from "./pages/auth/forgot-password";
+import { ConfigProvider } from "antd";
+import { getThemeConfig } from "./themeConfig";
+import { useAppSelector } from "./app/hooks";
+import UserManagement from "./pages/admin/UserManagement";
 
 function App() {
+  const state = useAppSelector((state: any): string => {
+    return state.theme?.value;
+  });
   return (
-    <Suspense
-      fallback={<div className="flex items-center h-[100vh]">Loading...</div>}
-    >
-      <BrowserRouter>
-        <ToastContainer />
-        <Routes>
-          <Route element={<AuthLayout />}>
-            <Route path="/" element={<UserLogin />} />
-            <Route path="/user/register" element={<Register />} />
-            <Route path="/admin/login" element={<Login />} />
-          </Route>
-          {/* Admin */}
-          <Route
-            element={
-              <ProtectedRoutes>
-                <PageLayout />
-              </ProtectedRoutes>
-            }
-          >
-            <Route path="/admin/overview" element={<Overview />} />
-            <Route path="/admin/account" element={<Account />} />
-            <Route path="/admin/transaction" element={<Transaction />} />
-            <Route path="/admin/approval" element={<Approval />} />
-            <Route path="*" element={<PageNotFound />} />
-          </Route>
-          {/* Users */}
-          <Route
-            element={
-              <ProtectedRoutes>
-                <UserPageLayout />
-              </ProtectedRoutes>
-            }
-          >
-            <Route path="/user/overview" element={<UserOverview />} />
-            <Route path="/user/transaction" element={<UserTransaction />} />
-            {/* <Route path="*" element={<PageNotFound />} /> */}
-          </Route>
-        </Routes>
-      </BrowserRouter>
-    </Suspense>
+    <ConfigProvider theme={getThemeConfig(state)}>
+      <Suspense
+        fallback={<div className="flex items-center h-[100vh]">Loading...</div>}
+      >
+        <BrowserRouter>
+          <ToastContainer />
+          <Routes>
+            <Route element={<AuthLayout />}>
+              <Route path="/" element={<UserLogin />} />
+              <Route path="/user/register" element={<Register />} />
+              <Route path="/admin/login" element={<Login />} />
+            </Route>
+            <Route path="user/forgot-password" element={<ForgotPassword />} />
+            {/* Admin */}
+            <Route
+              element={
+                <ProtectedRoutes>
+                  <PageLayout />
+                </ProtectedRoutes>
+              }
+            >
+              <Route path="/admin/overview" element={<Overview />} />
+              <Route path="/admin/account" element={<Account />} />
+              <Route path="/admin/transaction" element={<Transaction />} />
+              <Route path="/admin/approval" element={<Approval />} />
+              <Route path="/admin/user-management" element={<UserManagement/>}/>
+            </Route>
+              <Route path="*" element={<PageNotFound />} />
+            {/* Users */}
+            <Route
+              element={
+                <ProtectedRoutes>
+                  <UserPageLayout />
+                </ProtectedRoutes>
+              }
+            >
+              <Route path="/user/overview" element={<UserOverview />} />
+              <Route path="/user/transaction" element={<UserTransaction />} />
+              {/* <Route path="*" element={<PageNotFound />} /> */}
+            </Route>
+          </Routes>
+        </BrowserRouter>
+      </Suspense>
+    </ConfigProvider>
   );
 }
 
