@@ -36,137 +36,84 @@ const UserTransaction = () => {
   const { response, isFetching } = useApi(
     `Transaction/statement?accountNumber=${account}`
   );
+ 
 
-  let info = result?.data?.data;
+  
 
-  // const generatePDF = () => {
-  //   const pdf = new jsPDF("p", "pt", "a4");
-
-  //   // Set column headers
-  //   const headers = [
-  //     "accountNumber",
-  //     "amount",
-  //     "dateCreated",
-  //     "senderName",
-  //     "senderAccount",
-  //     "senderBank",
-  //     "remarks",
-  //     "beneficiaryName",
-  //     "beneficiaryAccount",
-  //     "beneficiaryBank",
-  //     "type",
-  //     "transMethod",
-  //     "sessionId",
-  //     "customerAccountId",
-  //   ];
-
-  //   // Map the response array to an array of arrays containing the data
-  //   const data = response.map(
-  //     (user: {
-  //       accountNumber: any;
-  //       amount: any;
-  //       dateCreated: any;
-  //       senderName: any;
-  //       senderAccount: any;
-  //       senderBank: any;
-  //       remarks: any;
-  //       beneficiaryName: any;
-  //       beneficiaryAccount: any;
-  //       beneficiaryBank: any;
-  //       type: any;
-  //       transMethod: any;
-  //       sessionId: any;
-  //       customerAccountId: any;
-  //     }) => [
-  //       user.accountNumber,
-  //       user.amount,
-  //       user.dateCreated,
-  //       user.senderName,
-  //       user.senderAccount,
-  //       user.senderBank,
-  //       user.remarks,
-  //       user.beneficiaryName,
-  //       user.beneficiaryBank,
-  //       user.type,
-  //       user.transMethod,
-  //       user.sessionId,
-  //       user.customerAccountId,
-  //     ]
-  //   );
-
-  //   // Add the table to the PDF using autoTable
-  //   pdf.autoTable({
-  //     head: [headers],
-  //     body: data,
-  //     startY: 20, // Set the starting y position for the table
-  //   } ,);
-
-  //   // Save the PDF
-  //   pdf.save("statements.pdf");
-  // };
-
-var generateData = function (amount: number) {
-  const result = [];
-  for (var i = 0; i < amount; i += 1) {
-    const data = response.map((user: any) => [
-      user.id,
-      user.accountNumber,
-      user.amount,
-      user.dateCreated,
-      user.senderName,
-      user.senderAccount,
-      user.senderBank,
-      user.remarks,
-      user.beneficiaryName,
-      user.beneficiaryBank,
-      user.type,
-      user.transMethod,
-      user.sessionId,
-      user.customerAccountId,
-    ]);
-
-    // Set the 'id' property of the object inside the loop
-    // data[0].id = (i + 1).toString();
-
-    result.push(data[0]);
+  function createHeaders(keys: string | any[]) {
+    var result = [];
+    for (var i = 0; i < keys.length; i += 1) {
+      result.push({
+        id: keys[i],
+        name: keys[i],
+        prompt: keys[i],
+        width: 30,
+        align: "center",
+        padding: 0,
+      } as any);
+    }
+    return result;
   }
-  return result;
-};
 
-function createHeaders(keys: string | any[]) {
-  var result = [];
-  for (var i = 0; i < keys.length; i += 1) {
-    result.push({
-      id: keys[i],
-      name: keys[i],
-      prompt: keys[i],
-      width: 65,
-      align: "center",
-      padding: 0,
-    });
-  }
-  return result;
-}
+  const headers = createHeaders([
+    "accountNumber",
+    "amount",
+    "beneficiaryBank",
+    "beneficiaryName",
+    "customerAccountId",
+    "dateCreated",
+    "remarks",
+    "senderAccount",
+    "senderBank",
+    "senderName",
+    "sessionId",
+    "transMethod",
+    "type",
+  ]);
+  const generateData = function (response: any) {
+   const data = response
+     .map((user: any) => ({
+       accountNumber: user?.accountNumber || "N/A",
+       amount: user?.amount?.toString().trim() || "N/A",
+       dateCreated: user?.dateCreated || "N/A",
+       senderName: user?.senderName || "N/A",
+       senderAccount: user?.senderAccount || "N/A",
+       senderBank: user?.senderBank || "N/A",
+       remarks: user?.remarks || "N/A",
+       beneficiaryName: user?.beneficiaryName || "N/A",
+       beneficiaryBank: user?.beneficiaryBank || "N/A",
+       type: user?.type || "N/A",
+       transMethod: user?.transMethod || "N/A",
+       sessionId: user?.sessionId?.toString() || "N/A",
+       customerAccountId: user?.customerAccountId?.toString() || "N/A",
+     }))
+     .map((user: any) => ({
+       ...user,
+       accountNumber: user.accountNumber === "" ? "N/A" : user.accountNumber,
+       amount: user.amount === "" ? "N/A" : user.amount,
+       dateCreated: user.dateCreated === "" ? "N/A" : user.dateCreated,
+       senderName: user.senderName === "" ? "N/A" : user.senderName,
+       senderAccount: user.senderAccount === "" ? "N/A" : user.senderAccount,
+       senderBank: user.senderBank === "" ? "N/A" : user.senderBank,
+       remarks: user.remarks === "" ? "N/A" : user.remarks,
+       beneficiaryName:
+         user.beneficiaryName === "" ? "N/A" : user.beneficiaryName,
+       beneficiaryBank:
+         user.beneficiaryBank === "" ? "N/A" : user.beneficiaryBank,
+       type: user.type === "" ? "N/A" : user.type,
+       transMethod: user.transMethod === "" ? "N/A" : user.transMethod,
+       sessionId: user.sessionId === "" ? "N/A" : user.sessionId,
+       customerAccountId:
+         user.customerAccountId === "" ? "N/A" : user.customerAccountId,
+     }));
+    console.log("data", data);
 
-const headers = createHeaders([
-  "accountNumber",
-  "amount",
-  "dateCreated",
-  "senderName",
-  "senderAccount",
-  "senderBank",
-  "remarks",
-  "beneficiaryName",
-  "beneficiaryAccount",
-  "beneficiaryBank",
-  "type",
-  "transMethod",
-  "sessionId",
-  "customerAccountId",
-]);
+    const pdf = new jsPDF({ putOnlyUsedFonts: true, orientation: "landscape" });
+    pdf.setFontSize(5);
+    pdf.table(1, 15, data, headers, { autoSize: false, fontSize: 7 });
 
-const doc = new jsPDF({ putOnlyUsedFonts: true, orientation: "landscape" });
-// doc.table(1, 1, generateData(100), headers, { autoSize: true });
+    pdf.save("statements.pdf");
+  };
 
   const columns: ColumnProps[] = [
     {
@@ -296,10 +243,7 @@ const doc = new jsPDF({ putOnlyUsedFonts: true, orientation: "landscape" });
           </Form>
         </div>
 
-        <Button
-          type="default"
-          // onClick={generatePDF}
-        >
+        <Button type="default" onClick={() => generateData(response)}>
           Download statement
         </Button>
       </div>
