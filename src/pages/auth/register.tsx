@@ -4,8 +4,11 @@ import { motion } from "framer-motion";
 import useRegister from "../../hooks/useRegister";
 import useFieldRequest from "../../hooks/useFieldRequest";
 import { useAppSelector } from "../../app/hooks";
+import { useState } from "react";
+import PasswordChecklist from "react-password-checklist";
 
 const Register = () => {
+  const [password, setPassword] = useState("");
   const { hnadleRegister, result } = useRegister();
   const state = useAppSelector((state) => {
     return state.auth;
@@ -41,7 +44,7 @@ const Register = () => {
             type: "spring",
             stiffness: 200,
           }}
-          className="p-5 lg:p-20 h-[90%] w-[95%] max-w-[50rem]" 
+          className="p-5 lg:p-20 h-[90%] w-[95%] max-w-[50rem]"
         >
           <h1 className=" text-blue-600 font-bold font-[gelionRegular] text-xl lg:text-3xl text-center lg:text-start ">
             Register your account
@@ -188,9 +191,28 @@ const Register = () => {
                     // value={password}
                     name="password"
                     className="py-3"
-                    onChange={(e) => AuthRequest("password", e.target.value)}
+                    onChange={(e) => {
+                      AuthRequest("password", e.target.value);
+                      setPassword(e.target.value); // Update the password state
+                    }}
                   />
                 </Form.Item>
+                {password ? (
+                  <PasswordChecklist
+                    rules={[
+                      "minLength",
+                      "specialChar",
+                      "number",
+                      "capital",
+                      "lowercase",
+                    ]}
+                    minLength={8}
+                    value={password}
+                    // onChange={(isValid) => {}}
+                  />
+                ) : (
+                  ""
+                )}
               </Col>
 
               <Col span={24}>

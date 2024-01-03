@@ -20,44 +20,44 @@ function getItem(
     label,
   } as MenuItem;
 }
-const items: MenuItem[] = [
-  getItem(
-    <a
-      className="text-[20px] font-semibold py-2"
-      href="/user/overview"
-      target="_self"
-    >
-      Overview
-    </a>,
-    "1",
-    <AiOutlineAppstore />
-  ),
-  getItem(
-    <a
-      className="text-[20px] font-semibold py-2"
-      href="/user/transaction"
-      target="_self"
-    >
-      Transactions
-    </a>,
-    "2",
-    <AiOutlineUser />
-  ),
-
-  getItem(
-    <Button
-      className="text-[20px] font-semibold flex items-center gap-2 p-2"
-      href="/"
-      target="_self"
-      // onClick={() =>}
-    >
-      <CiLogout />
-      Logout
-    </Button>,
-    "3"
-  ),
-];
 const Topbar = () => {
+  const items: MenuItem[] = [
+    getItem(
+      <a
+        className="text-[20px] font-semibold py-2"
+        href="/user/overview"
+        target="_self"
+      >
+        Overview
+      </a>,
+      "1",
+      <AiOutlineAppstore />
+    ),
+    getItem(
+      <a
+        className="text-[20px] font-semibold py-2"
+        href="/user/transaction"
+        target="_self"
+      >
+        Transactions
+      </a>,
+      "2",
+      <AiOutlineUser />
+    ),
+
+    getItem(
+      <Button
+        className="text-[20px] font-semibold flex items-center gap-2 p-2"
+        href="/"
+        target="_self"
+        onClick={() => handleLogout()}
+      >
+        <CiLogout />
+        Logout
+      </Button>,
+      "3"
+    ),
+  ];
   const [open, setOpen] = useState(false);
   const [placement, setPlacement] = useState<DrawerProps["placement"]>("left");
   const showDrawer = () => {
