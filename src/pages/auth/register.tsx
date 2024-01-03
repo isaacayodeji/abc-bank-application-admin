@@ -183,7 +183,16 @@ const Register = () => {
               <Col xs={24} md={12}>
                 <Form.Item
                   label={<div className="font-semibold">Password</div>}
-                  rules={[{ required: true, message: "Password required" }]}
+                  rules={[
+                    { required: true, message: "Password required" },
+                    {
+                      required: true,
+                      pattern: new RegExp(
+                        "^(?=.*[!@#$%^&*()_+\\-=\\[\\]{};':\"\\\\|,.<>\\/?])(?=.*[a-z])(?=.*[A-Z])(?=.*\\d).+$"
+                      ),
+                      message: "Password is not strong enough",
+                    },
+                  ]}
                   name="password"
                 >
                   <Input.Password
