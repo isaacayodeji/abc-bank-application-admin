@@ -8,6 +8,7 @@ import { LoadingOutlined, PlusOutlined } from "@ant-design/icons";
 import { message, Upload } from "antd";
 import type { UploadChangeParam } from "antd/es/upload";
 import type { RcFile, UploadFile, UploadProps } from "antd/es/upload/interface";
+import { NavLink } from "react-router-dom";
 
 const getBase64 = (img: RcFile, callback: (url: string) => void) => {
   const reader = new FileReader();
@@ -90,6 +91,13 @@ const Sidebar = () => {
     return undefined;
   };
 
+  const navLinkStyle = ({ isActive }: any) => {
+    return {
+      color: isActive ? "blue" : "black",
+      fonWeight: isActive ? "bold" : "normal",
+    };
+  };
+
   return (
     <nav className="border-r border-[#c4c4c4] hidden lg:block overflow-auto">
       <div className="flex flex-col items-center space-y-2 pb-4 text-[14px] font-semibold text-black">
@@ -143,24 +151,26 @@ const Sidebar = () => {
       {/* user menu */}
       <ul className="flex pl-12 flex-col gap-6  p-4 pt-8">
         <li className="text-[18px] font-bold ">
-          <a
+          <NavLink
             className="flex items-center gap-2"
-            href="/user/overview"
+            to="/user/overview"
             target=""
+            style={navLinkStyle}
           >
             <AiOutlineAppstore />
             Overview
-          </a>
+          </NavLink>
         </li>
         <li className="text-[18px] font-bold ">
-          <a
+          <NavLink
             className="flex items-center gap-2"
-            href="/user/transaction"
+            to="/user/transaction"
+            style={navLinkStyle}
             target=""
           >
             <AiOutlineCreditCard />
             Transactions
-          </a>
+          </NavLink>
         </li>
       </ul>
     </nav>

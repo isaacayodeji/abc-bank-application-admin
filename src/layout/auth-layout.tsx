@@ -30,7 +30,7 @@ export const AuthLayout: React.FC = () => {
                   ? "/user/register"
                   : "/login"
               )
-            }
+            } 
           >
             {pathname === "/user/register"
               ? "Sign In"

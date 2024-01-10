@@ -80,7 +80,13 @@ const UserOverview = () => {
             <div className="space-y-2">
               <img src={icon1} alt="" />
               <p className="text-[19px] font-medium">Total Balance</p>
-              <b className="text-[22px]">£ {details.currentBalance}</b>
+              <b className="text-[22px]">
+                £{" "}
+                {details.currentBalance.toLocaleString("en-UK", {
+                  minimumFractionDigits: 2,
+                  maximumFractionDigits: 2,
+                })}
+              </b>
             </div>
           </div>
           {/* row2 */}
@@ -88,7 +94,13 @@ const UserOverview = () => {
             <div className="space-y-2">
               <img src={icon3} alt="" />
               <p className="text-[19px] font-medium">Debit</p>
-              <b className="text-[22px]">£ {details.drAmount}</b>
+              <b className="text-[22px]">
+                £{" "}
+                {details.drAmount.toLocaleString("en-UK", {
+                  minimumFractionDigits: 2,
+                  maximumFractionDigits: 2,
+                })}
+              </b>
             </div>
           </div>
           {/* row3 */}
@@ -96,7 +108,13 @@ const UserOverview = () => {
             <div className="space-y-2">
               <img src={icon2} alt="" />
               <p className="text-[19px] font-medium">Credit</p>
-              <b className="text-[22px]">£ {details.crAmount}</b>
+              <b className="text-[22px]">
+                £{" "}
+                {details.crAmount.toLocaleString("en-UK", {
+                  minimumFractionDigits: 2,
+                  maximumFractionDigits: 2,
+                })}
+              </b>
             </div>
           </div>
           {/* row4 */}
@@ -105,7 +123,13 @@ const UserOverview = () => {
               <img src={icon4} alt="" />
               <p className="text-[19px] font-medium">Overdraft</p>
 
-              <b className="text-[22px]">£ {details.overDraft}</b>
+              <b className="text-[22px]">
+                £{" "}
+                {details.overDraft.toLocaleString("en-UK", {
+                  minimumFractionDigits: 2,
+                  maximumFractionDigits: 2,
+                })}
+              </b>
             </div>
           </div>
         </div>
